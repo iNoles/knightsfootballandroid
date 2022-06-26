@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="core-ui/src/main/kotlin/com/jonathansteele/core/ui/Background.kt" value="0.17120343839541546" />
+        <entry key="feature-headlines/src/main/kotlin/com/jonathansteele/feature/headlines/HeadlinesScreen.kt" value="0.3731481481481482" />
+        <entry key="feature-rosters/src/main/kotlin/com/jonathansteele/feature/rosters/RostersScreen.kt" value="0.3925925925925926" />
+        <entry key="feature-schedules/src/main/kotlin/com/jonathansteele/feature/schedules/ScheduleScreen.kt" value="0.3731481481481482" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
