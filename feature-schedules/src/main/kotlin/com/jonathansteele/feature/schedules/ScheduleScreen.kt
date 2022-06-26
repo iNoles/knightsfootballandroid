@@ -37,11 +37,11 @@ fun ScheduleListItem(schedule: Schedule) {
     Column {
         Text(
             text = schedule.opponent!!,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.headlineSmall,
         )
         Text(
             text = schedule.location!!,
-            style = MaterialTheme.typography.headlineSmall,
+            style = MaterialTheme.typography.bodyMedium,
         )
     }
 }

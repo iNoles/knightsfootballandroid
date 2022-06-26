@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="rosters">Rosters</string>
+    <string name="players">Players</string>
+    <string name="coaches">Coaches</string>
 </resources>

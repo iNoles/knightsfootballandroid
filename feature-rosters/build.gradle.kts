@@ -17,6 +17,10 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.2.0-rc02"
     }
+
+    kotlinOptions {
+        freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
+    }
 }
 
 dependencies {
@@ -26,6 +30,7 @@ dependencies {
     implementation (project(":core-navigation"))
 
     implementation (libs.jsoup)
+    implementation(libs.accompanist.pager)
     implementation (libs.hilt.android)
     kapt (libs.hilt.compiler)
 }
