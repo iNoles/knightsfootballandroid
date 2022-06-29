@@ -1,8 +1,6 @@
 package com.jonathansteele.feature.rosters
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -83,30 +81,41 @@ fun RostersScreen(
 @Composable
 fun PlayersListItem(
     players: Players,
+    modifier: Modifier = Modifier,
     itemSeparation: Dp = 16.dp
 ) {
-    Column(
-        modifier = Modifier.padding(vertical = itemSeparation)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
     ) {
-        Text(
-            text = players.name!!,
-            style = MaterialTheme.typography.headlineSmall,
-        )
-        Text(
-            text = players.position!!,
-            style = MaterialTheme.typography.bodyMedium,
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .weight(1f)
+                .padding(vertical = itemSeparation)
+        ) {
+            Text(
+                text = players.number!!,
+                style = MaterialTheme.typography.labelMedium
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Column {
+                Text(
+                    text = players.name!!,
+                    style = MaterialTheme.typography.headlineSmall,
+                )
+                Text(
+                    text = players.position!!,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+        }
     }
 }
 
 @Composable
-fun CoachesListItem(
-    coaches: Coaches,
-    itemSeparation: Dp = 16.dp
-) {
-    Column(
-        modifier = Modifier.padding(vertical = itemSeparation)
-    ) {
+fun CoachesListItem(coaches: Coaches) {
+    Column {
         Text(
             text = coaches.name!!,
             style = MaterialTheme.typography.headlineSmall,

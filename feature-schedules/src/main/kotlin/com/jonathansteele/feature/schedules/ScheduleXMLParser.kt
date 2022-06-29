@@ -5,6 +5,10 @@ import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import java.io.InputStream
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 // We don't use namespaces
 private val ns: String? = null
@@ -47,6 +51,7 @@ private fun readItem(parser: XmlPullParser): Schedule {
     parser.require(XmlPullParser.START_TAG, ns, "item")
     var opponent: String? = null
     var location: String? = null
+    var startDate: String? = null
     while (parser.next() != XmlPullParser.END_TAG) {
         if (parser.eventType != XmlPullParser.START_TAG) {
             continue
@@ -54,10 +59,11 @@ private fun readItem(parser: XmlPullParser): Schedule {
         when (parser.name) {
             "s:opponent" -> opponent = readOpponent(parser)
             "ev:location" -> location = readLocation(parser)
+            "ev:startdate" -> startDate = readStartDate(parser)
             else -> skip(parser)
         }
     }
-    return Schedule(opponent, location)
+    return Schedule(opponent, location, startDate)
 }
 
 // Processes title tags in the feed.
@@ -76,6 +82,21 @@ private fun readLocation(parser: XmlPullParser): String {
     val location = readText(parser)
     parser.require(XmlPullParser.END_TAG, ns, "ev:location")
     return location
+}
+
+// Processes summary tags in the feed.
+@Throws(XmlPullParserException::class, IOException::class)
+private fun readStartDate(parser: XmlPullParser): String {
+    parser.require(XmlPullParser.START_TAG, ns, "ev:startdate")
+    val utcTime = readText(parser)
+    try {
+        val formatter = DateTimeFormatter.ofPattern("MMMM dd / h:mm a")
+        val zdf = ZonedDateTime.parse(utcTime).withZoneSameInstant(ZoneId.systemDefault())
+        return zdf.format(formatter)
+    } catch (_: DateTimeParseException) {
+    }
+    parser.require(XmlPullParser.END_TAG, ns, "ev:startdate")
+    return utcTime
 }
 
 // For the tags title and summary, extracts their text values.
