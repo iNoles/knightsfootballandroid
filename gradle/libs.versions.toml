@@ -14,7 +14,7 @@ okhttp3 = "5.0.0-alpha.10"
 moshi = "1.13.0"
 kotlin = "1.6.21"
 kotlinxCoroutines = "1.6.3"
-navigationCompose = "2.5.0-rc02"
+navigationCompose = "2.5.0"
 jsoup = "1.15.1"
 junit4 = "4.13.2"
 
