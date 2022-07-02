@@ -19,22 +19,13 @@ class RostersViewModel @Inject constructor(
     )
     val tabState: StateFlow<RostersTabState> = _tabState.asStateFlow()
 
-    // Observe players information
-    val players = flow {
-        emit(rostersFetcher.fetchPlayers())
+    // Observe rosters information for players and coaches
+    val rosters = flow {
+        emit(rostersFetcher.fetchRosters())
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000L),
-        initialValue = emptyList()
-    )
-
-    // Observe players information
-    val coaches = flow {
-        emit(rostersFetcher.fetchCoaches())
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000L),
-        initialValue = emptyList()
+        initialValue = Rosters(mutableListOf(), mutableListOf())
     )
 
     fun switchTab(newIndex: Int) {

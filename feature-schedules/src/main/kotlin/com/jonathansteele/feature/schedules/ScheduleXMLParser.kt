@@ -90,7 +90,7 @@ private fun readStartDate(parser: XmlPullParser): String {
     parser.require(XmlPullParser.START_TAG, ns, "ev:startdate")
     val utcTime = readText(parser)
     try {
-        val formatter = DateTimeFormatter.ofPattern("MMMM dd / h:mm a")
+        val formatter = DateTimeFormatter.ofPattern("MMM dd / h:mm a")
         val zdf = ZonedDateTime.parse(utcTime).withZoneSameInstant(ZoneId.systemDefault())
         return zdf.format(formatter)
     } catch (_: DateTimeParseException) {

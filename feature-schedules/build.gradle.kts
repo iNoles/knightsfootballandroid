@@ -17,6 +17,10 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.2.0-rc02"
     }
+
+    kotlinOptions {
+        freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
+    }
 }
 
 dependencies {

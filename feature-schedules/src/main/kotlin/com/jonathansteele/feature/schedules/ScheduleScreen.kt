@@ -1,18 +1,16 @@
 package com.jonathansteele.feature.schedules
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jonathansteele.core.ui.SportsBackground
@@ -35,35 +33,14 @@ fun SchedulesScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScheduleListItem(
-    schedule: Schedule,
-    modifier: Modifier = Modifier,
-    itemSeparation: Dp = 16.dp
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .weight(1f)
-                .padding(vertical = itemSeparation)
-        ) {
-            Column {
-                Text(
-                    text = schedule.opponent!!,
-                    style = MaterialTheme.typography.headlineSmall,
-                )
-                Text(
-                    text = schedule.location!!,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            }
-        }
-        Text(text = schedule.startDate!!)
-    }
+fun ScheduleListItem(schedule: Schedule) {
+    ListItem(
+        headlineText = { Text(text = schedule.opponent!!) },
+        supportingText = { Text(text = schedule.location!!) },
+        trailingContent = { Text(text = schedule.startDate!!) }
+    )
 }
 
 @Preview(showBackground = true)

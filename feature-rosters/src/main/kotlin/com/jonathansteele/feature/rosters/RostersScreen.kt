@@ -3,7 +3,8 @@ package com.jonathansteele.feature.rosters
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -13,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -50,6 +50,7 @@ fun RostersScreen(
                 )
             }
         }
+        val rostersState by viewModel.rosters.collectAsState()
         HorizontalPager(
             state = pagerState,
             count = tabState.titles.size,
@@ -58,17 +59,15 @@ fun RostersScreen(
         ) { index ->
             when(index) {
                 0 -> {
-                    val rostersState by viewModel.players.collectAsState()
                     LazyColumn(modifier = modifier.padding(horizontal = 16.dp)) {
-                        items(rostersState) {
+                        items(rostersState.players) {
                             PlayersListItem(players = it)
                         }
                     }
                 }
                 1 -> {
-                    val rostersState by viewModel.coaches.collectAsState()
                     LazyColumn(modifier = modifier.padding(horizontal = 16.dp)) {
-                        items(rostersState) {
+                        items(rostersState.coaches) {
                             CoachesListItem(coaches = it)
                         }
                     }
@@ -78,53 +77,23 @@ fun RostersScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlayersListItem(
-    players: Players,
-    modifier: Modifier = Modifier,
-    itemSeparation: Dp = 16.dp
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .weight(1f)
-                .padding(vertical = itemSeparation)
-        ) {
-            Text(
-                text = players.number!!,
-                style = MaterialTheme.typography.labelMedium
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Column {
-                Text(
-                    text = players.name!!,
-                    style = MaterialTheme.typography.headlineSmall,
-                )
-                Text(
-                    text = players.position!!,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            }
-        }
-    }
+fun PlayersListItem(players: Players) {
+    ListItem(
+        headlineText = { Text(text = players.name!!) },
+        supportingText = { Text(text = players.position!!) },
+        leadingContent = { Text(text = players.number!!) }
+    )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CoachesListItem(coaches: Coaches) {
-    Column {
-        Text(
-            text = coaches.name!!,
-            style = MaterialTheme.typography.headlineSmall,
-        )
-        Text(
-            text = coaches.position!!,
-            style = MaterialTheme.typography.bodyMedium,
-        )
-    }
+    ListItem(
+        headlineText = { Text(text = coaches.name!!) },
+        supportingText = { Text(text = coaches.position!!) }
+    )
 }
 
 @Preview(showBackground = true)

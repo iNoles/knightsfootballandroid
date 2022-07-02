@@ -21,7 +21,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.Response
 import java.io.IOException
 import javax.inject.Inject
 
@@ -33,7 +32,7 @@ import javax.inject.Inject
 class RostersFetcher @Inject constructor(
     private val okHttpClient: OkHttpClient
 ) {
-    private suspend fun fetchResources(): Response {
+    suspend fun fetchRosters(): Rosters {
         // Create request for remote resource.
         val request = Request.Builder()
             .url("https://ucfknights.com/sports/football/roster")
@@ -42,23 +41,10 @@ class RostersFetcher @Inject constructor(
 
         // If the network request wasn't successful, throw an exception
         if (!response.isSuccessful) throw IOException("Unexpected code $response")
-        return response
-    }
 
-    suspend fun fetchPlayers(): List<Players> {
-        val response = fetchResources()
         return withContext(Dispatchers.IO) {
             response.body.use {
-                parsePlayersDOM(it.string())
-            }
-        }
-    }
-
-    suspend fun fetchCoaches(): List<Coaches> {
-        val response = fetchResources()
-        return withContext(Dispatchers.IO) {
-            response.body.use {
-                parseCoachesDOM(it.string())
+                parseRostersDOM(it.string())
             }
         }
     }

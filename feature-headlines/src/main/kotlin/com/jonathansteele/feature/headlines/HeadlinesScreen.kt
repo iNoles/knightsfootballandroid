@@ -6,15 +6,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -51,44 +50,26 @@ private fun HeadlinesIcon(url: String?, modifier: Modifier = Modifier) {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun HeadlinesListItem(
     data: Data,
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier,
-    itemSeparation: Dp = 16.dp
 ) {
     val launchResourceIntent =
         Intent(Intent.ACTION_VIEW, Uri.parse("https://ucfknights.com${data.story_path}"))
     val context = LocalContext.current
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .weight(1f)
-                .padding(vertical = itemSeparation)
-        ) {
+    ListItem(
+        headlineText = { Text(text = data.story_headline!!) },
+        supportingText = { Text(text = data.story_created!!) },
+        leadingContent = {
             HeadlinesIcon(url = data.story_image, iconModifier.size(64.dp))
-            Spacer(modifier = Modifier.width(16.dp))
-            Column(
-                modifier = modifier.clickable {
-                    ContextCompat.startActivity(context, launchResourceIntent, null)
-                }
-            ) {
-                Text(
-                    text = data.story_headline!!,
-                    style = MaterialTheme.typography.headlineSmall,
-                )
-                Text(
-                    text = data.story_created!!,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            }
+        },
+        modifier = modifier.clickable {
+            ContextCompat.startActivity(context, launchResourceIntent, null)
         }
-    }
+    )
 }
 
 
