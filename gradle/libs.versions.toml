@@ -15,7 +15,7 @@ moshi = "1.13.0"
 kotlin = "1.6.21"
 kotlinxCoroutines = "1.6.3"
 navigationCompose = "2.5.0"
-jsoup = "1.15.1"
+jsoup = "1.15.2"
 junit4 = "4.13.2"
 
 [libraries]
