@@ -3,8 +3,11 @@ package com.jonathansteele.knightsfootball
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -15,23 +18,24 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.jonathansteele.core.ui.SportsBackground
+import com.jonathansteele.core.ui.*
 import com.jonathansteele.core.ui.theme.KnightsFootballTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            MainScreen(calculateWindowSizeClass(this))
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(windowSizeClass: WindowSizeClass) {
     KnightsFootballTheme {
         val navController = rememberNavController()
         val sportsTopLevelNavigation = remember(navController) {
@@ -46,12 +50,26 @@ fun MainScreen() {
                 containerColor = Color.Transparent,
                 contentColor = MaterialTheme.colorScheme.onBackground,
                 bottomBar = {
-                    SportsBottomBar(
-                        onNavigateToTopLevelDestination = sportsTopLevelNavigation::navigateTo,
-                        currentDestination = currentDestination
-                    )
+                    if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
+                        windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+                    ) {
+                        SportsBottomBar(
+                            onNavigateToTopLevelDestination = sportsTopLevelNavigation::navigateTo,
+                            currentDestination = currentDestination
+                        )
+                    }
                 }
             ) {
+                Row(modifier = Modifier.fillMaxSize()) {
+                    if (windowSizeClass.widthSizeClass != WindowWidthSizeClass.Compact &&
+                        windowSizeClass.heightSizeClass != WindowHeightSizeClass.Compact
+                    ) {
+                        SportsNavRail(
+                            onNavigateToTopLevelDestination = sportsTopLevelNavigation::navigateTo,
+                            currentDestination = currentDestination
+                        )
+                    }
+                }
                 SportsNavHost(
                     navController = navController,
                     modifier = Modifier.padding(it)
@@ -62,6 +80,36 @@ fun MainScreen() {
 }
 
 @Composable
+private fun SportsNavRail(
+    onNavigateToTopLevelDestination: (TopLevelDestination) -> Unit,
+    currentDestination: NavDestination?,
+    modifier: Modifier = Modifier,
+) {
+    SportsNavigationRail(modifier = modifier) {
+        TOP_LEVEL_DESTINATIONS.forEach { destination ->
+            val selected =
+                currentDestination?.hierarchy?.any { it.route == destination.route } == true
+            SportsNavigationRailItem(
+                selected = selected,
+                onClick = { onNavigateToTopLevelDestination(destination) },
+                icon = {
+                    Icon(
+                        if (selected) {
+                            destination.selectedIcon
+                        } else {
+                            destination.unselectedIcon
+                               },
+                        contentDescription = null
+                    )
+                },
+                label = { Text(stringResource(destination.iconTextId)) }
+            )
+        }
+    }
+}
+
+
+@Composable
 private fun SportsBottomBar(
     onNavigateToTopLevelDestination: (TopLevelDestination) -> Unit,
     currentDestination: NavDestination?
@@ -69,11 +117,11 @@ private fun SportsBottomBar(
     // Wrap the navigation bar in a surface so the color behind the system
     // navigation is equal to the container color of the navigation bar.
     Surface(color = MaterialTheme.colorScheme.surface) {
-        NavigationBar {
+        SportsNavigationBar {
             TOP_LEVEL_DESTINATIONS.forEach { destination ->
                 val selected =
                     currentDestination?.hierarchy?.any { it.route == destination.route } == true
-                NavigationBarItem(
+                SportsNavigationBarItem(
                     selected = selected,
                     onClick = { onNavigateToTopLevelDestination(destination) },
                     icon = {

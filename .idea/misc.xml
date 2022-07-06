@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.184" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.184" />
         <entry key="core-ui/src/main/kotlin/com/jonathansteele/core/ui/Background.kt" value="0.17120343839541546" />
         <entry key="feature-headlines/src/main/kotlin/com/jonathansteele/feature/headlines/HeadlinesScreen.kt" value="0.25" />
         <entry key="feature-rosters/src/main/kotlin/com/jonathansteele/feature/rosters/RostersScreen.kt" value="0.25" />

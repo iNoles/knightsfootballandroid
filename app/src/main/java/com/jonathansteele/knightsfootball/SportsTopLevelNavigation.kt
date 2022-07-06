@@ -10,12 +10,12 @@ import androidx.compose.material.icons.outlined.Star
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.jonathansteele.feature.headlines.navigation.HeadlinesDestination
 import com.jonathansteele.feature.headlines.R.string.headlines
-import com.jonathansteele.feature.rosters.navigation.RostersDestination
+import com.jonathansteele.feature.headlines.navigation.HeadlinesDestination
 import com.jonathansteele.feature.rosters.R.string.rosters
-import com.jonathansteele.feature.schedules.navigation.ScheduleDestination
+import com.jonathansteele.feature.rosters.navigation.RostersDestination
 import com.jonathansteele.feature.schedules.R.string.schedules
+import com.jonathansteele.feature.schedules.navigation.ScheduleDestination
 
 /**
  * Routes for the different top level destinations in the application. Each of these destinations
