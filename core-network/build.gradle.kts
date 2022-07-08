@@ -10,10 +10,6 @@ android {
     compileSdk = 33
 
     defaultConfig.minSdk = 26
-
-    kotlinOptions {
-        freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
-    }
 }
 
 dependencies {

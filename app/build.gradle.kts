@@ -34,7 +34,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
     }
     buildFeatures {
         compose = true
@@ -58,6 +57,7 @@ dependencies {
 
     implementation (libs.androidx.activity.compose)
     implementation (libs.androidx.compose.material.iconsExtended)
+    implementation(libs.material3)
     implementation(libs.androidx.compose.material3.windowSizeClass)
     implementation (libs.hilt.android)
     kapt (libs.hilt.compiler)

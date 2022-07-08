@@ -11,6 +11,7 @@ coil = "2.1.0"
 hilt = "2.42"
 hiltNavigationCompose = "1.0.0"
 okhttp3 = "5.0.0-alpha.10"
+material3 = "1.6.1"
 moshi = "1.13.0"
 kotlin = "1.7.0"
 kotlinxCoroutines = "1.6.3"
@@ -37,6 +38,7 @@ androidx-test-ext = { group = "androidx.test.ext", name = "junit-ktx", version.r
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+material3 = { group = "com.google.android.material", name = "material", version.ref = "material3" }
 moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
