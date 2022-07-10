@@ -5,4 +5,18 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.dagger.hilt.android) apply false
+    alias(libs.plugins.spotless) apply false
+}
+
+subprojects {
+    apply(plugin = "com.diffplug.spotless")
+
+    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+        kotlin {
+            ktlint()
+        }
+        kotlinGradle {
+            ktlint()
+        }
+    }
 }

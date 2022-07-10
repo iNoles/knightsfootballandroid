@@ -1,8 +1,8 @@
 plugins {
-    id ("com.android.application")
-    id ("org.jetbrains.kotlin.android")
-    id ("org.jetbrains.kotlin.kapt")
-    id ("dagger.hilt.android.plugin")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -49,21 +49,21 @@ android {
 }
 
 dependencies {
-    implementation (project(":core-navigation"))
-    implementation (project(":core-ui"))
-    implementation (project(":feature-headlines"))
-    implementation (project(":feature-rosters"))
-    implementation (project(":feature-schedules"))
+    implementation(project(":core-navigation"))
+    implementation(project(":core-ui"))
+    implementation(project(":feature-headlines"))
+    implementation(project(":feature-rosters"))
+    implementation(project(":feature-schedules"))
 
-    implementation (libs.androidx.activity.compose)
-    implementation (libs.androidx.compose.material.iconsExtended)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.material3)
     implementation(libs.androidx.compose.material3.windowSizeClass)
-    implementation (libs.hilt.android)
-    kapt (libs.hilt.compiler)
-    testImplementation (libs.junit4)
-    androidTestImplementation (libs.androidx.test.ext)
-    androidTestImplementation (libs.androidx.test.espresso.core)
-    androidTestImplementation (libs.androidx.compose.ui.test.junit4)
-    debugImplementation (libs.androidx.compose.ui.test.manifest)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

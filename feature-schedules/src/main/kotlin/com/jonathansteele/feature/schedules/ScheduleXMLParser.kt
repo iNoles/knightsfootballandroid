@@ -1,12 +1,14 @@
 package com.jonathansteele.feature.schedules
 
 import android.util.Xml
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toJavaLocalDateTime
+import kotlinx.datetime.toLocalDateTime
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import java.io.InputStream
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
@@ -52,6 +54,7 @@ private fun readItem(parser: XmlPullParser): Schedule {
     var opponent: String? = null
     var location: String? = null
     var startDate: String? = null
+    var opponentLogo: String? = null
     while (parser.next() != XmlPullParser.END_TAG) {
         if (parser.eventType != XmlPullParser.START_TAG) {
             continue
@@ -60,13 +63,14 @@ private fun readItem(parser: XmlPullParser): Schedule {
             "s:opponent" -> opponent = readOpponent(parser)
             "ev:location" -> location = readLocation(parser)
             "ev:startdate" -> startDate = readStartDate(parser)
+            "s:opponentlogo" -> opponentLogo = readOppontentLogo(parser)
             else -> skip(parser)
         }
     }
-    return Schedule(opponent, location, startDate)
+    return Schedule(opponent, location, startDate, opponentLogo)
 }
 
-// Processes title tags in the feed.
+// Processes opponent tags in the feed.
 @Throws(XmlPullParserException::class, IOException::class)
 private fun readOpponent(parser: XmlPullParser): String {
     parser.require(XmlPullParser.START_TAG, ns, "s:opponent")
@@ -75,7 +79,7 @@ private fun readOpponent(parser: XmlPullParser): String {
     return opponent
 }
 
-// Processes summary tags in the feed.
+// Processes location tags in the feed.
 @Throws(XmlPullParserException::class, IOException::class)
 private fun readLocation(parser: XmlPullParser): String {
     parser.require(XmlPullParser.START_TAG, ns, "ev:location")
@@ -84,19 +88,28 @@ private fun readLocation(parser: XmlPullParser): String {
     return location
 }
 
-// Processes summary tags in the feed.
+// Processes startdate tags in the feed.
 @Throws(XmlPullParserException::class, IOException::class)
 private fun readStartDate(parser: XmlPullParser): String {
     parser.require(XmlPullParser.START_TAG, ns, "ev:startdate")
     val utcTime = readText(parser)
     try {
         val formatter = DateTimeFormatter.ofPattern("MMM dd / h:mm a")
-        val zdf = ZonedDateTime.parse(utcTime).withZoneSameInstant(ZoneId.systemDefault())
-        return zdf.format(formatter)
+        val instant = utcTime.toInstant().toLocalDateTime(TimeZone.currentSystemDefault())
+        return formatter.format(instant.toJavaLocalDateTime())
     } catch (_: DateTimeParseException) {
     }
     parser.require(XmlPullParser.END_TAG, ns, "ev:startdate")
     return utcTime
+}
+
+// Processes gamepromoname tags in the feed.
+@Throws(XmlPullParserException::class, IOException::class)
+private fun readOppontentLogo(parser: XmlPullParser): String {
+    parser.require(XmlPullParser.START_TAG, ns, "s:opponentlogo")
+    val location = readText(parser)
+    parser.require(XmlPullParser.END_TAG, ns, "s:opponentlogo")
+    return location
 }
 
 // For the tags title and summary, extracts their text values.

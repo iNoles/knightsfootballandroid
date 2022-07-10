@@ -1,8 +1,8 @@
 plugins {
-    id ("com.android.library")
-    id ("org.jetbrains.kotlin.android")
-    id ("org.jetbrains.kotlin.kapt")
-    id ("dagger.hilt.android.plugin")
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -13,9 +13,9 @@ android {
 }
 
 dependencies {
-    api (libs.androidx.hilt.navigation.compose)
-    api (libs.androidx.navigation.compose)
+    api(libs.androidx.hilt.navigation.compose)
+    api(libs.androidx.navigation.compose)
 
-    implementation (libs.hilt.android)
-    kapt (libs.hilt.compiler)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }

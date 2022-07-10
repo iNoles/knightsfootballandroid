@@ -1,6 +1,6 @@
 plugins {
-    id ("com.android.library")
-    id ("org.jetbrains.kotlin.android")
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -10,6 +10,7 @@ android {
     defaultConfig {
         minSdk = 26
         targetSdk = 33
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
@@ -21,9 +22,14 @@ android {
 }
 
 dependencies {
-    implementation (libs.androidx.core.ktx)
-    api (libs.androidx.compose.ui)
-    api (libs.androidx.compose.material3)
-    debugApi (libs.androidx.compose.ui.tooling)
-    api (libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.core.ktx)
+    api(libs.androidx.compose.ui)
+    api(libs.androidx.compose.material3)
+    debugApi(libs.androidx.compose.ui.tooling)
+    api(libs.androidx.compose.ui.tooling.preview)
+
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 }

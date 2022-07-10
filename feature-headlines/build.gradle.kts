@@ -1,8 +1,8 @@
 plugins {
-    id ("com.android.library")
-    id ("org.jetbrains.kotlin.android")
-    id ("org.jetbrains.kotlin.kapt")
-    id ("dagger.hilt.android.plugin")
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -23,14 +23,14 @@ android {
 }
 
 dependencies {
-    implementation (project(":core-common"))
-    implementation (project(":core-network"))
-    implementation (project(":core-ui"))
-    implementation (project(":core-navigation"))
+    implementation(project(":core-common"))
+    implementation(project(":core-network"))
+    implementation(project(":core-ui"))
+    implementation(project(":core-navigation"))
 
-    implementation (libs.coil.compose)
-    implementation (libs.moshi)
-    kapt (libs.moshi.kotlin.codegen)
-    implementation (libs.hilt.android)
-    kapt (libs.hilt.compiler)
+    implementation(libs.coil.compose)
+    implementation(libs.moshi)
+    kapt(libs.moshi.kotlin.codegen)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }
