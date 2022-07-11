@@ -10,7 +10,6 @@ import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import java.io.InputStream
 import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeParseException
 
 // We don't use namespaces
 private val ns: String? = null
@@ -63,7 +62,7 @@ private fun readItem(parser: XmlPullParser): Schedule {
             "s:opponent" -> opponent = readOpponent(parser)
             "ev:location" -> location = readLocation(parser)
             "ev:startdate" -> startDate = readStartDate(parser)
-            "s:opponentlogo" -> opponentLogo = readOppontentLogo(parser)
+            "s:opponentlogo" -> opponentLogo = readOpponentLogo(parser)
             else -> skip(parser)
         }
     }
@@ -97,7 +96,7 @@ private fun readStartDate(parser: XmlPullParser): String {
         val formatter = DateTimeFormatter.ofPattern("MMM dd / h:mm a")
         val instant = utcTime.toInstant().toLocalDateTime(TimeZone.currentSystemDefault())
         return formatter.format(instant.toJavaLocalDateTime())
-    } catch (_: DateTimeParseException) {
+    } catch (_: IllegalArgumentException) {
     }
     parser.require(XmlPullParser.END_TAG, ns, "ev:startdate")
     return utcTime
@@ -105,7 +104,7 @@ private fun readStartDate(parser: XmlPullParser): String {
 
 // Processes gamepromoname tags in the feed.
 @Throws(XmlPullParserException::class, IOException::class)
-private fun readOppontentLogo(parser: XmlPullParser): String {
+private fun readOpponentLogo(parser: XmlPullParser): String {
     parser.require(XmlPullParser.START_TAG, ns, "s:opponentlogo")
     val location = readText(parser)
     parser.require(XmlPullParser.END_TAG, ns, "s:opponentlogo")
