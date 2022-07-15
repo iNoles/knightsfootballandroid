@@ -10,7 +10,6 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -18,11 +17,6 @@ import coil.compose.AsyncImage
 import com.jonathansteele.core.ui.SportsBackground
 import com.jonathansteele.core.ui.SportsTopAppBar
 import com.jonathansteele.core.ui.theme.KnightsFootballTheme
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import kotlinx.datetime.toJavaInstant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun SchedulesScreen(
@@ -50,12 +44,7 @@ fun ScheduleListItem(
         leadingContent = { OpponentIcon(url = schedule.opponentLogo, modifier.size(64.dp)) },
         headlineText = { Text(text = schedule.opponent!!) },
         supportingText = { Text(text = schedule.location!!) },
-        trailingContent = {
-            Text(text = schedule.startDateInstant?.let {
-                dateFormatted(publishDate = it)
-            } ?: schedule.startDateString!!
-            )
-        }
+        trailingContent = { Text(text = schedule.startDate!!) }
     )
 }
 
@@ -68,34 +57,13 @@ private fun OpponentIcon(url: String?, modifier: Modifier = Modifier) {
     )
 }
 
-@Composable
-private fun dateFormatted(publishDate: Instant): String {
-    var zoneId by remember { mutableStateOf(ZoneId.systemDefault()) }
-
-    val context = LocalContext.current
-
-    DisposableEffect(context) {
-        val receiver = TimeZoneBroadcastReceiver(
-            onTimeZoneChanged = { zoneId = ZoneId.systemDefault() }
-        )
-        receiver.register(context)
-        onDispose {
-            receiver.unregister(context)
-        }
-    }
-
-    return DateTimeFormatter.ofPattern("MMM dd / h:mm a")
-        .withZone(zoneId).format(publishDate.toJavaInstant())
-}
-
 @Preview(showBackground = true)
 @Composable
 fun ScheduleTabPreview() {
     val schedule = Schedule(
         opponent = "USF",
         location = "Bounce House",
-        startDateString = "Today",
-        startDateInstant = Clock.System.now(),
+        startDate = "Today",
         opponentLogo = "https://ucfknights.com/images/logos/South_Florida.png"
     )
     KnightsFootballTheme {

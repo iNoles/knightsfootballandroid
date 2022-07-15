@@ -6,6 +6,7 @@ import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import java.io.InputStream
+import java.time.format.DateTimeFormatter
 
 // We don't use namespaces
 private val ns: String? = null
@@ -63,13 +64,7 @@ private fun readItem(parser: XmlPullParser): Schedule {
         }
     }
 
-    val instant = try {
-        startDate?.toInstant()
-    } catch (_: IllegalArgumentException) {
-        null
-    }
-
-    return Schedule(opponent, location, startDate, instant, opponentLogo)
+    return Schedule(opponent, location, startDate, opponentLogo)
 }
 
 // Processes opponent tags in the feed.
@@ -95,6 +90,12 @@ private fun readLocation(parser: XmlPullParser): String {
 private fun readStartDate(parser: XmlPullParser): String {
     parser.require(XmlPullParser.START_TAG, ns, "ev:startdate")
     val utcTime = readText(parser)
+    try {
+        val formatter = DateTimeFormatter.ofPattern("MMM dd / h:mm a")
+        val instant = utcTime.toInstant().toLocalDateTime(TimeZone.currentSystemDefault())
+        return formatter.format(instant.toJavaLocalDateTime())
+    } catch (_: IllegalArgumentException) {
+    }
     parser.require(XmlPullParser.END_TAG, ns, "ev:startdate")
     return utcTime
 }
