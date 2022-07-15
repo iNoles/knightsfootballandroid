@@ -16,12 +16,4 @@
         <item name="colorAccent">@color/teal_200</item>
     </style>
 
-    <style name="Theme.KnightsFootball.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.KnightsFootball.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
-
-    <style name="Theme.KnightsFootball.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 </resources>
