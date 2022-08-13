@@ -27,7 +27,6 @@ import com.jonathansteele.feature.schedules.navigation.ScheduleDestination
  * Models the navigation top level actions in the app.
  */
 class SportsTopLevelNavigation (private val navController: NavHostController) {
-
     fun navigateTo(destination: TopLevelDestination) {
         navController.navigate(destination.route) {
             // Pop up to the start destination of the graph to

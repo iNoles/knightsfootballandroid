@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Allows us to override night specific attributes in the
+         values-night folder. -->
+    <style name="NightAdjusted.Theme.KnightsFootball" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+    </style>
 
     <!-- Allows us to override platform level specific attributes in their
          respective values-vXX folder. -->
-    <style name="Platform.Theme.KnightsFootball" parent="Theme.Material3.DayNight">
+    <style name="PlatformAdjusted.Theme.KnightsFootball" parent="NightAdjusted.Theme.KnightsFootball">
         <item name="android:statusBarColor">@color/black30</item>
     </style>
 
-    <!-- The actual theme we use. This varies for light theme (here),
-         and values-night for dark theme. -->
-    <!-- TODO Change colors here and in values-night when implementing M3 theme -->
-    <style name="Theme.KnightsFootball" parent="Platform.Theme.KnightsFootball">
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorAccent">@color/teal_200</item>
+    <!-- The final theme we use -->
+    <style name="Theme.KnightsFootball" parent="PlatformAdjusted.Theme.KnightsFootball" />
+
+    <style name="NightAdjusted.Theme.Splash" parent="Theme.SplashScreen">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+    </style>
+
+    <style name="Theme.KnightsFootball.Splash" parent="NightAdjusted.Theme.Splash">
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.KnightsFootball</item>
     </style>
 
 </resources>

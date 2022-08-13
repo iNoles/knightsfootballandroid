@@ -57,7 +57,7 @@ dependencies {
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material.iconsExtended)
-    implementation(libs.material3)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.compose.material3.windowSizeClass)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)

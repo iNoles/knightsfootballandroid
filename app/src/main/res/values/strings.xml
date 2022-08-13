@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">KnightsFootball</string>
+    <string name="app_name">SpaceXLaunch</string>
+    <string name="top_app_bar_preview_title">Title</string>
+    <string name="latestLaunches">Latest Launches</string>
+    <string name="latest">Latest</string>
+    <string name="upcomingLaunches">Upcoming Launches</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="vehicles">Vehicles</string>
+    <string name="company">Company</string>
 </resources>

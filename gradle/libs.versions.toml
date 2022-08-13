@@ -6,13 +6,13 @@ androidxCompose = "1.3.0-alpha03"
 androidxComposeCompiler = "1.3.0-rc01"
 androidxComposeMaterial3 = "1.0.0-alpha16"
 androidxCore = "1.8.0"
+androidxSplashScreen = "1.0.0"
 androidxEspresso = "3.4.0"
 androidxTestExt = "1.1.3"
 coil = "2.1.0"
 hilt = "2.43.2"
 hiltNavigationCompose = "1.0.0"
 okhttp3 = "5.0.0-alpha.10"
-material3 = "1.6.1"
 moshi = "1.13.0"
 kotlin = "1.7.10"
 kotlinxCoroutines = "1.6.4"
@@ -37,12 +37,12 @@ androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose"}
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxSplashScreen" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
 androidx-test-ext = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExt" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
-material3 = { group = "com.google.android.material", name = "material", version.ref = "material3" }
 moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
