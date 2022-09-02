@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
     id("dagger.hilt.android.plugin")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -49,7 +50,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core-navigation"))
     implementation(project(":core-ui"))
     implementation(project(":feature-headlines"))
     implementation(project(":feature-rosters"))
@@ -59,8 +59,11 @@ dependencies {
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.olshevski.navigation.reimagined)
+
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)

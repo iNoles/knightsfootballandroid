@@ -2,151 +2,124 @@ package com.jonathansteele.knightsfootball
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material3.*
-import androidx.compose.material3.windowsizeclass.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.jonathansteele.core.ui.*
 import com.jonathansteele.core.ui.theme.KnightsFootballTheme
+import com.jonathansteele.feature.headlines.HeadlinesScreen
+import com.jonathansteele.feature.rosters.RostersScreen
+import com.jonathansteele.feature.schedules.SchedulesScreen
 import dagger.hilt.android.AndroidEntryPoint
+import dev.olshevski.navigation.reimagined.*
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen(calculateWindowSizeClass(this))
+            MainScreen()
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
-fun MainScreen(windowSizeClass: WindowSizeClass) {
+fun MainScreen() {
+    val navController = rememberNavController(
+        startDestination = BottomNavigationDestination.values()[0],
+    )
+
+    // custom back handler implementation
+    BottomNavigationBackHandler(navController)
+
     KnightsFootballTheme {
-        val navController = rememberNavController()
-        val sportsTopLevelNavigation = remember(navController) {
-            SportsTopLevelNavigation(navController)
-        }
-
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentDestination = navBackStackEntry?.destination
-
         SportsBackground {
             Scaffold(
                 containerColor = Color.Transparent,
                 contentColor = MaterialTheme.colorScheme.onBackground,
                 bottomBar = {
-                    if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
-                        windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
-                    ) {
-                        SportsBottomBar(
-                            onNavigateToTopLevelDestination = sportsTopLevelNavigation::navigateTo,
-                            currentDestination = currentDestination
-                        )
-                    }
+                    SportsBottomBar(navController)
                 }
             ) {
-                Row(modifier = Modifier.fillMaxSize()) {
-                    if (windowSizeClass.widthSizeClass != WindowWidthSizeClass.Compact &&
-                        windowSizeClass.heightSizeClass != WindowHeightSizeClass.Compact
-                    ) {
-                        SportsNavRail(
-                            onNavigateToTopLevelDestination = sportsTopLevelNavigation::navigateTo,
-                            currentDestination = currentDestination
-                        )
+                AnimatedNavHost(controller = navController) {
+                    when(it) {
+                        BottomNavigationDestination.Home -> HeadlinesScreen()
+                        BottomNavigationDestination.Schedules -> SchedulesScreen()
+                        BottomNavigationDestination.Rosters -> RostersScreen()
                     }
                 }
-                SportsNavHost(
-                    navController = navController,
-                    modifier = Modifier.padding(it)
-                )
             }
         }
     }
 }
 
 @Composable
-private fun SportsNavRail(
-    onNavigateToTopLevelDestination: (TopLevelDestination) -> Unit,
-    currentDestination: NavDestination?,
-    modifier: Modifier = Modifier,
-) {
-    SportsNavigationRail(modifier = modifier) {
-        TOP_LEVEL_DESTINATIONS.forEach { destination ->
-            val selected =
-                currentDestination?.hierarchy?.any { it.route == destination.route } == true
-            SportsNavigationRailItem(
-                selected = selected,
-                onClick = { onNavigateToTopLevelDestination(destination) },
-                icon = {
-                    Icon(
-                        if (selected) {
-                            destination.selectedIcon
-                        } else {
-                            destination.unselectedIcon
-                               },
-                        contentDescription = null
-                    )
-                },
-                label = { Text(stringResource(destination.iconTextId)) }
-            )
-        }
-    }
-}
-
-
-@Composable
-private fun SportsBottomBar(
-    onNavigateToTopLevelDestination: (TopLevelDestination) -> Unit,
-    currentDestination: NavDestination?
-) {
+private fun SportsBottomBar(navController: NavController<BottomNavigationDestination>) {
+    val lastDestination = navController.backstack.entries.last().destination
     // Wrap the navigation bar in a surface so the color behind the system
     // navigation is equal to the container color of the navigation bar.
     Surface(color = MaterialTheme.colorScheme.surface) {
         SportsNavigationBar {
-            TOP_LEVEL_DESTINATIONS.forEach { destination ->
-                val selected =
-                    currentDestination?.hierarchy?.any { it.route == destination.route } == true
+            BottomNavigationDestination.values().forEach { destination ->
+                val tabTitle = stringResource(destination.tabTitleId)
                 SportsNavigationBarItem(
-                    selected = selected,
-                    onClick = { onNavigateToTopLevelDestination(destination) },
+                    label = { Text(tabTitle) },
                     icon = {
                         Icon(
-                            if (selected) {
-                                destination.selectedIcon
-                            } else {
-                                destination.unselectedIcon
-                            },
-                            contentDescription = null
+                            imageVector = destination.unselectedTabIcon,
+                            contentDescription = tabTitle
                         )
                     },
-                    label = { Text(stringResource(destination.iconTextId)) }
+                    selectedIcon = {
+                        Icon(
+                            imageVector = destination.selectedTabIcon,
+                            contentDescription = tabTitle
+                        )
+                    },
+                    selected = destination == lastDestination,
+                    onClick = {
+                        // keep only one instance of a destination in the backstack
+                        if (!navController.moveToTop { it == destination }) {
+                            // if there is no existing instance, add it
+                            navController.navigate(destination)
+                        }
+                    }
                 )
             }
         }
     }
 }
 
-/*@Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-    KnightsFootballTheme {
-        Greeting("Android")
+private fun BottomNavigationBackHandler(
+    navController: NavController<BottomNavigationDestination>
+) {
+    BackHandler(enabled = navController.backstack.entries.size > 1) {
+        val lastEntry = navController.backstack.entries.last()
+        if (lastEntry.destination == BottomNavigationDestination.values()[0]) {
+            // The start destination should always be the last to pop. We move it to the start
+            // to preserve its saved state and view models.
+            navController.moveLastEntryToStart()
+        } else {
+            navController.pop()
+        }
     }
-}*/
+}
+
+private fun NavController<BottomNavigationDestination>.moveLastEntryToStart() {
+    setNewBackstack(
+        entries = backstack.entries.toMutableList().also {
+            val entry = it.removeLast()
+            it.add(0, entry)
+        },
+        action = NavAction.Pop
+    )
+}
+

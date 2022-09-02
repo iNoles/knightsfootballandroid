@@ -10,7 +10,6 @@ data class Headlines(
 )
 
 @JsonClass(generateAdapter = true)
-@Immutable
 data class Data(
     val story_created: String?,
     val story_headline: String?,

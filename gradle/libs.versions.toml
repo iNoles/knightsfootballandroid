@@ -1,5 +1,5 @@
 [versions]
-accompanist = "0.26.0-alpha"
+accompanist = "0.26.2-beta"
 androidPlugins = "7.4.0-alpha10"
 androidxActivity = "1.6.0-rc01"
 androidxCompose = "1.3.0-beta01"
@@ -11,13 +11,12 @@ androidxEspresso = "3.4.0"
 androidxTestExt = "1.1.3"
 coil = "2.2.0"
 hilt = "2.43.2"
-hiltNavigationCompose = "1.0.0"
 okhttp3 = "5.0.0-alpha.10"
 moshi = "1.13.0"
 kotlin = "1.7.10"
 kotlinxCoroutines = "1.6.4"
 kotlinxDatetime = "0.4.0"
-navigationCompose = "2.5.1"
+reimaginedNavigation = "1.2.0"
 jsoup = "1.15.3"
 junit4 = "4.13.2"
 spotless = "6.10.0"
@@ -34,8 +33,6 @@ androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "androidxCompose" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxCompose" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "androidxCompose" }
-androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
-androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose"}
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxSplashScreen" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
@@ -43,6 +40,7 @@ androidx-test-ext = { group = "androidx.test.ext", name = "junit-ktx", version.r
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+olshevski-navigation-reimagined = { group = "dev.olshevski.navigation", name = "reimagined", version.ref = "reimaginedNavigation" }
 moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }

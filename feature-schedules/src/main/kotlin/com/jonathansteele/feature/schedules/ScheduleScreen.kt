@@ -12,11 +12,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.jonathansteele.core.ui.SportsBackground
 import com.jonathansteele.core.ui.SportsTopAppBar
 import com.jonathansteele.core.ui.theme.KnightsFootballTheme
+import dev.olshevski.navigation.reimagined.hilt.hiltViewModel
 
 @Composable
 fun SchedulesScreen(

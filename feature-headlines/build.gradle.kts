@@ -26,11 +26,13 @@ dependencies {
     implementation(project(":core-common"))
     implementation(project(":core-network"))
     implementation(project(":core-ui"))
-    implementation(project(":core-navigation"))
 
     implementation(libs.coil.compose)
+    implementation("dev.olshevski.navigation:reimagined-hilt:1.2.0")
+
     implementation(libs.moshi)
     kapt(libs.moshi.kotlin.codegen)
+
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 }
