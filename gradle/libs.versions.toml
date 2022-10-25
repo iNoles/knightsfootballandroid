@@ -1,5 +1,5 @@
 [versions]
-accompanist = "0.26.5-rc"
+accompanist = "0.27.0"
 androidPlugins = "8.0.0-alpha06"
 androidxActivity = "1.6.1"
 androidxComposeBom = "2022.10.00"
