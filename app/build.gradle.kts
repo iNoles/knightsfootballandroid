@@ -55,6 +55,10 @@ dependencies {
     implementation(project(":feature-rosters"))
     implementation(project(":feature-schedules"))
 
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.core.splashscreen)
