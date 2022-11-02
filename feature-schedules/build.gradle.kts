@@ -26,7 +26,7 @@ dependencies {
 
     implementation(libs.kotlinx.datetime)
     implementation(libs.coil.compose)
-    implementation("dev.olshevski.navigation:reimagined-hilt:1.2.0")
+    implementation("dev.olshevski.navigation:reimagined-hilt:1.3.0")
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
