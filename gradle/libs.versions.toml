@@ -19,7 +19,7 @@ reimaginedNavigation = "1.3.0"
 jsoup = "1.15.3"
 junit4 = "4.13.2"
 spotless = "6.11.0"
-turbine = "0.12.0"
+turbine = "0.12.1"
 
 [libraries]
 accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanist" }
