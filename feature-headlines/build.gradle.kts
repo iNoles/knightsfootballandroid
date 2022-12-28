@@ -28,7 +28,7 @@ dependencies {
     implementation(project(":core-ui"))
 
     implementation(libs.coil.compose)
-    implementation("dev.olshevski.navigation:reimagined-hilt:1.3.0")
+    implementation("dev.olshevski.navigation:reimagined-hilt:1.3.1")
 
     implementation(libs.moshi)
     kapt(libs.moshi.kotlin.codegen)
