@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="PlatformAdjusted.Theme.SpaceXLaunch" parent="NightAdjusted.Theme.KnightsFootball">
+    <style name="PlatformAdjusted.Theme.KnightsFootball" parent="NightAdjusted.Theme.KnightsFootball">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>

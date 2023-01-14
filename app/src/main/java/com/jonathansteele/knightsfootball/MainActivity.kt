@@ -5,8 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -47,12 +49,13 @@ fun MainScreen() {
                 bottomBar = {
                     SportsBottomBar(navController)
                 }
-            ) {
+            ) { padding ->
+                val modifier = Modifier.padding(padding)
                 AnimatedNavHost(controller = navController) {
                     when(it) {
-                        BottomNavigationDestination.Home -> HeadlinesScreen()
-                        BottomNavigationDestination.Schedules -> SchedulesScreen()
-                        BottomNavigationDestination.Rosters -> RostersScreen()
+                        BottomNavigationDestination.Home -> HeadlinesScreen(modifier = modifier)
+                        BottomNavigationDestination.Schedules -> SchedulesScreen(modifier = modifier)
+                        BottomNavigationDestination.Rosters -> RostersScreen(modifier = modifier)
                     }
                 }
             }
