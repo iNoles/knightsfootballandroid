@@ -1,6 +1,6 @@
 [versions]
 accompanist = "0.28.0"
-androidPlugins = "8.0.0-beta02"
+androidPlugins = "8.0.0-beta03"
 androidxActivity = "1.6.1"
 androidxComposeBom = "2023.01.00"
 androidxComposeCompiler = "1.4.2"
