@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.dagger.hilt.android) apply false
     alias(libs.plugins.spotless) apply false
+    alias(libs.plugins.compose.compiler.metrics) apply false
 }
 
 subprojects {
@@ -18,23 +19,6 @@ subprojects {
         }
         kotlinGradle {
             ktlint()
-        }
-    }
-
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).configureEach {
-        kotlinOptions {
-            if (project.findProperty("myapp.enableComposeCompilerReports") == "true") {
-                freeCompilerArgs += listOf(
-                    "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
-                            project.buildDir.absolutePath + "/compose_metrics"
-                )
-                freeCompilerArgs += listOf(
-                    "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
-                            project.buildDir.absolutePath + "/compose_metrics"
-                )
-            }
         }
     }
 }

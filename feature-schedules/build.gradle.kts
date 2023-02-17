@@ -1,8 +1,11 @@
+import org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
     id("dagger.hilt.android.plugin")
+    id("dev.shreyaspatil.compose-compiler-report-generator")
 }
 
 android {
@@ -11,12 +14,23 @@ android {
 
     defaultConfig.minSdk = 26
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
     buildFeatures {
         compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
+}
+
+tasks.withType<KaptGenerateStubsTask>().configureEach {
+    kotlinOptions.jvmTarget = "11"
 }
 
 dependencies {

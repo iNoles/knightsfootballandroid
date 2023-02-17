@@ -1,9 +1,12 @@
+import org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
     id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
+    id("dev.shreyaspatil.compose-compiler-report-generator")
 }
 
 android {
@@ -47,6 +50,10 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
+}
+
+tasks.withType<KaptGenerateStubsTask>().configureEach {
+    kotlinOptions.jvmTarget = "11"
 }
 
 dependencies {

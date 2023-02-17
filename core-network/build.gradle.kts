@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -17,6 +19,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+}
+
+tasks.withType<KaptGenerateStubsTask>().configureEach {
+    kotlinOptions.jvmTarget = "11"
 }
 
 dependencies {
