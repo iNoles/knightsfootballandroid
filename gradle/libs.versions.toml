@@ -20,7 +20,7 @@ jsoup = "1.15.4"
 junit4 = "4.13.2"
 spotless = "6.15.0"
 turbine = "0.12.1"
-composeMetrics = "1.0.0-beta03"
+composeMetrics = "1.0.0"
 
 [libraries]
 accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanist" }
