@@ -61,14 +61,14 @@ fun SportsTab(
                     Box(modifier = Modifier.padding(top = SportsTabDefaults.TabTopPadding)) {
                         text()
                     }
-                }
+                },
             )
-        }
+        },
     )
 }
 
 /**
- * Now in Android tab row. Wraps Material 3 [TabRow].
+ * Sports tab row. Wraps Material 3 [TabRow].
  *
  * @param selectedTabIndex The index of the currently selected tab.
  * @param modifier Modifier to be applied to the tab row.
@@ -90,10 +90,10 @@ fun SportsTabRow(
             TabRowDefaults.Indicator(
                 modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
                 height = 2.dp,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
         },
-        tabs = tabs
+        tabs = tabs,
     )
 }
 

@@ -9,8 +9,6 @@ androidxSplashScreen = "1.0.0"
 androidxEspresso = "3.5.1"
 androidxTestExt = "1.1.5"
 coil = "2.2.2"
-hilt = "2.45"
-okhttp3 = "5.0.0-alpha.11"
 moshi = "1.14.0"
 kotlin = "1.8.10"
 kotlinxCoroutines = "1.6.4"
@@ -39,14 +37,10 @@ androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscree
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
 androidx-test-ext = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExt" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 olshevski-navigation-reimagined = { group = "dev.olshevski.navigation", name = "reimagined", version.ref = "reimaginedNavigation" }
-moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }
-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
@@ -57,6 +51,5 @@ android-application = { id = "com.android.application", version.ref = "androidPl
 android-library = { id = "com.android.library", version.ref = "androidPlugins" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 compose-compiler-metrics = { id = "dev.shreyaspatil.compose-compiler-report-generator", version.ref = "composeMetrics" }

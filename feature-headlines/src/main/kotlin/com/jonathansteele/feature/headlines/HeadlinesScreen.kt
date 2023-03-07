@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
@@ -20,21 +21,16 @@ import coil.compose.AsyncImage
 import com.jonathansteele.core.ui.SportsBackground
 import com.jonathansteele.core.ui.SportsTopAppBar
 import com.jonathansteele.core.ui.theme.KnightsFootballTheme
-import dev.olshevski.navigation.reimagined.hilt.hiltViewModel
 
 @Composable
 fun HeadlinesScreen(
-    modifier: Modifier = Modifier,
-    viewModel: HeadlinesViewModel = hiltViewModel()
+    modifier: Modifier = Modifier
 ) {
-    val headlinesState = viewModel.headlines.collectAsState()
+    val headlinesState = fetchHeadlines().collectAsState(initial = emptyList())
     Column(modifier = modifier) {
         SportsTopAppBar(titleRes = R.string.headlines)
-        LazyColumn(
-            modifier = modifier.padding(horizontal = 16.dp),
-            contentPadding = PaddingValues(top = 8.dp)
-        ) {
-            items(headlinesState.value!!) {
+        LazyColumn {
+            items(headlinesState.value) {
                 HeadlinesListItem(data = it)
             }
         }
@@ -60,16 +56,18 @@ private fun HeadlinesListItem(
     val launchResourceIntent =
         Intent(Intent.ACTION_VIEW, Uri.parse("https://ucfknights.com${data.story_path}"))
     val context = LocalContext.current
-    ListItem(
-        headlineText = { Text(text = data.story_headline!!) },
-        supportingText = { Text(text = data.story_created!!) },
-        leadingContent = {
-            HeadlinesIcon(url = data.story_image, iconModifier.size(64.dp))
-        },
-        modifier = modifier.clickable {
-            ContextCompat.startActivity(context, launchResourceIntent, null)
-        }
-    )
+    Card(modifier.padding(16.dp)) {
+        ListItem(
+            headlineText = { Text(text = data.story_headline!!) },
+            supportingText = { Text(text = data.story_created!!) },
+            leadingContent = {
+                HeadlinesIcon(url = data.story_image, iconModifier.size(64.dp))
+            },
+            modifier = modifier.clickable {
+                ContextCompat.startActivity(context, launchResourceIntent, null)
+            }
+        )
+    }
 }
 
 

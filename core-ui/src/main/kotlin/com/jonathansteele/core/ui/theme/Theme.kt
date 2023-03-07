@@ -17,12 +17,15 @@
 package com.jonathansteele.core.ui.theme
 
 import android.os.Build
+import androidx.annotation.ChecksSdkIntAtLeast
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
@@ -32,6 +35,7 @@ import androidx.compose.ui.unit.dp
 /**
  * Light default theme color scheme
  */
+@VisibleForTesting
 val LightDefaultColorScheme = lightColorScheme(
     primary = Purple40,
     onPrimary = Color.White,
@@ -55,12 +59,15 @@ val LightDefaultColorScheme = lightColorScheme(
     onSurface = DarkPurpleGray10,
     surfaceVariant = PurpleGray90,
     onSurfaceVariant = PurpleGray30,
-    outline = PurpleGray50
+    inverseSurface = DarkPurpleGray20,
+    inverseOnSurface = DarkPurpleGray95,
+    outline = PurpleGray50,
 )
 
 /**
  * Dark default theme color scheme
  */
+@VisibleForTesting
 val DarkDefaultColorScheme = darkColorScheme(
     primary = Purple80,
     onPrimary = Purple20,
@@ -84,12 +91,15 @@ val DarkDefaultColorScheme = darkColorScheme(
     onSurface = DarkPurpleGray90,
     surfaceVariant = PurpleGray30,
     onSurfaceVariant = PurpleGray80,
-    outline = PurpleGray60
+    inverseSurface = DarkPurpleGray90,
+    inverseOnSurface = DarkPurpleGray10,
+    outline = PurpleGray60,
 )
 
 /**
  * Light Android theme color scheme
  */
+@VisibleForTesting
 val LightAndroidColorScheme = lightColorScheme(
     primary = Green40,
     onPrimary = Color.White,
@@ -113,12 +123,15 @@ val LightAndroidColorScheme = lightColorScheme(
     onSurface = DarkGreenGray10,
     surfaceVariant = GreenGray90,
     onSurfaceVariant = GreenGray30,
-    outline = GreenGray50
+    inverseSurface = DarkGreenGray20,
+    inverseOnSurface = DarkGreenGray95,
+    outline = GreenGray50,
 )
 
 /**
  * Dark Android theme color scheme
  */
+@VisibleForTesting
 val DarkAndroidColorScheme = darkColorScheme(
     primary = Green80,
     onPrimary = Green20,
@@ -142,18 +155,20 @@ val DarkAndroidColorScheme = darkColorScheme(
     onSurface = DarkGreenGray90,
     surfaceVariant = GreenGray30,
     onSurfaceVariant = GreenGray80,
-    outline = GreenGray60
+    inverseSurface = DarkGreenGray90,
+    inverseOnSurface = DarkGreenGray10,
+    outline = GreenGray60,
 )
 
 /**
- * Light default gradient colors
+ * Light Android gradient colors
  */
-val LightDefaultGradientColors = GradientColors(
-    primary = Purple95,
-    secondary = Orange95,
-    tertiary = Blue95,
-    neutral = DarkPurpleGray95
-)
+val LightAndroidGradientColors = GradientColors(container = DarkGreenGray95)
+
+/**
+ * Dark Android gradient colors
+ */
+val DarkAndroidGradientColors = GradientColors(container = Color.Black)
 
 /**
  * Light Android background theme
@@ -168,65 +183,68 @@ val DarkAndroidBackgroundTheme = BackgroundTheme(color = Color.Black)
 /**
  * KnightsFootball theme.
  *
- * The order of precedence for the color scheme is: Dynamic color > Android theme > Default theme.
- * Dark theme is independent as all the aforementioned color schemes have light and dark versions.
- * The default theme color scheme is used by default.
- *
  * @param darkTheme Whether the theme should use a dark color scheme (follows system by default).
- * @param dynamicColor Whether the theme should use a dynamic color scheme (Android 12+ only).
- * @param androidTheme Whether the theme should use the Android theme color scheme.
+ * @param androidTheme Whether the theme should use the Android theme color scheme instead of the
+ *        default theme.
+ * @param disableDynamicTheming If `true`, disables the use of dynamic theming, even when it is
+ *        supported. This parameter has no effect if [androidTheme] is `true`.
  */
 @Composable
 fun KnightsFootballTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false,
     androidTheme: Boolean = false,
-    content: @Composable () -> Unit
+    disableDynamicTheming: Boolean = true,
+    content: @Composable () -> Unit,
 ) {
+    // Color scheme
     val colorScheme = when {
-        dynamicColor -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val context = LocalContext.current
-                if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-            } else {
-                if (darkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
-            }
-        }
         androidTheme -> if (darkTheme) DarkAndroidColorScheme else LightAndroidColorScheme
+        !disableDynamicTheming && supportsDynamicTheming() -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+
         else -> if (darkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
     }
-
-    val defaultGradientColors = GradientColors()
+    // Gradient colors
+    val emptyGradientColors = GradientColors(container = colorScheme.surfaceColorAtElevation(2.dp))
+    val defaultGradientColors = GradientColors(
+        top = colorScheme.inverseOnSurface,
+        bottom = colorScheme.primaryContainer,
+        container = colorScheme.surface,
+    )
     val gradientColors = when {
-        dynamicColor -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                defaultGradientColors
-            } else {
-                if (darkTheme) defaultGradientColors else LightDefaultGradientColors
-            }
-        }
-        androidTheme -> defaultGradientColors
-        else -> if (darkTheme) defaultGradientColors else LightDefaultGradientColors
+        androidTheme -> if (darkTheme) DarkAndroidGradientColors else LightAndroidGradientColors
+        !disableDynamicTheming && supportsDynamicTheming() -> emptyGradientColors
+        else -> defaultGradientColors
     }
-
+    // Background theme
     val defaultBackgroundTheme = BackgroundTheme(
         color = colorScheme.surface,
-        tonalElevation = 2.dp
+        tonalElevation = 2.dp,
     )
     val backgroundTheme = when {
-        dynamicColor -> defaultBackgroundTheme
         androidTheme -> if (darkTheme) DarkAndroidBackgroundTheme else LightAndroidBackgroundTheme
         else -> defaultBackgroundTheme
     }
-
+    val tintTheme = when {
+        androidTheme -> TintTheme()
+        !disableDynamicTheming && supportsDynamicTheming() -> TintTheme(colorScheme.primary)
+        else -> TintTheme()
+    }
+    // Composition locals
     CompositionLocalProvider(
         LocalGradientColors provides gradientColors,
-        LocalBackgroundTheme provides backgroundTheme
+        LocalBackgroundTheme provides backgroundTheme,
+        LocalTintTheme provides tintTheme,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
-            typography = KnightsFootballTypography,
-            content = content
+            typography = SportsTypography,
+            content = content,
         )
     }
 }
+
+@ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
+fun supportsDynamicTheming() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S

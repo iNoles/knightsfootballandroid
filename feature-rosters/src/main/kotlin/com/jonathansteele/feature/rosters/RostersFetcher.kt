@@ -16,36 +16,15 @@
  */
 package com.jonathansteele.feature.rosters
 
-import com.jonathansteele.core.network.await
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import java.io.IOException
-import javax.inject.Inject
+import fuel.Fuel
+import fuel.get
+import kotlinx.coroutines.flow.flow
 
 /**
  * A class which fetches UCF Knights Players from Jsoup.
  *
- * @param okHttpClient [OkHttpClient] to use for network requests
  */
-class RostersFetcher @Inject constructor(
-    private val okHttpClient: OkHttpClient
-) {
-    suspend fun fetchRosters(): Rosters {
-        // Create request for remote resource.
-        val request = Request.Builder()
-            .url("https://ucfknights.com/sports/football/roster")
-            .build()
-        val response = okHttpClient.newCall(request).await()
-
-        // If the network request wasn't successful, throw an exception
-        if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-        return withContext(Dispatchers.IO) {
-            response.body.use {
-                parseRostersDOM(it.string())
-            }
-        }
-    }
+fun fetchRosters() = flow {
+    val body = Fuel.get("https://ucfknights.com/sports/football/roster").body
+    emit(parseRostersDOM(body))
 }

@@ -5,18 +5,18 @@ import kotlinx.datetime.*
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
-import java.io.InputStream
+import java.io.StringReader
 import java.time.format.DateTimeFormatter
 
 // We don't use namespaces
 private val ns: String? = null
 
 @Throws(XmlPullParserException::class, IOException::class)
-fun parseSchedulesXML(inputStream: InputStream): List<Schedule> {
-    inputStream.use {
+fun parseSchedulesXML(string: String): List<Schedule> {
+    StringReader(string).use {
         val parser = Xml.newPullParser()
         parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
-        parser.setInput(it, null)
+        parser.setInput(it)
         parser.nextTag()
         parser.nextTag()
         return readChannel(parser)

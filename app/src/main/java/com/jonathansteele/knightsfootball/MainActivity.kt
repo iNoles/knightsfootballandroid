@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -13,14 +14,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.jonathansteele.core.ui.*
+import com.jonathansteele.core.ui.theme.GradientColors
 import com.jonathansteele.core.ui.theme.KnightsFootballTheme
+import com.jonathansteele.core.ui.theme.LocalGradientColors
 import com.jonathansteele.feature.headlines.HeadlinesScreen
 import com.jonathansteele.feature.rosters.RostersScreen
 import com.jonathansteele.feature.schedules.SchedulesScreen
-import dagger.hilt.android.AndroidEntryPoint
 import dev.olshevski.navigation.reimagined.*
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -35,14 +36,23 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController(
-        startDestination = BottomNavigationDestination.values()[0],
+        startDestination = BottomNavigationDestination.Home
     )
 
     // custom back handler implementation
     BottomNavigationBackHandler(navController)
 
+    val lastEntry = navController.backstack.entries.last()
+    val shouldShowGradientBackground = lastEntry.destination == BottomNavigationDestination.Home
+
     KnightsFootballTheme {
-        SportsBackground {
+        SportsGradientBackground(
+            gradientColors = if (shouldShowGradientBackground) {
+                LocalGradientColors.current
+            } else {
+                GradientColors()
+            },
+        ) {
             Scaffold(
                 containerColor = Color.Transparent,
                 contentColor = MaterialTheme.colorScheme.onBackground,
@@ -50,7 +60,7 @@ fun MainScreen() {
                     SportsBottomBar(navController)
                 }
             ) { padding ->
-                val modifier = Modifier.padding(padding)
+                val modifier = Modifier.padding(padding).fillMaxSize()
                 AnimatedNavHost(controller = navController) {
                     when(it) {
                         BottomNavigationDestination.Home -> HeadlinesScreen(modifier = modifier)
@@ -106,7 +116,7 @@ private fun BottomNavigationBackHandler(
 ) {
     BackHandler(enabled = navController.backstack.entries.size > 1) {
         val lastEntry = navController.backstack.entries.last()
-        if (lastEntry.destination == BottomNavigationDestination.values()[0]) {
+        if (lastEntry.destination == BottomNavigationDestination.Home) {
             // The start destination should always be the last to pop. We move it to the start
             // to preserve its saved state and view models.
             navController.moveLastEntryToStart()
@@ -125,4 +135,3 @@ private fun NavController<BottomNavigationDestination>.moveLastEntryToStart() {
         action = NavAction.Pop
     )
 }
-

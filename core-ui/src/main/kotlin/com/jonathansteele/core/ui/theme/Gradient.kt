@@ -21,14 +21,17 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 /**
- * A class to model gradient color values for Now in Android.
+ * A class to model gradient color values for Sports.
+ *
+ * @param top The top gradient color to be rendered.
+ * @param bottom The bottom gradient color to be rendered.
+ * @param container The container gradient color over which the gradient will be rendered.
  */
 @Immutable
 data class GradientColors(
-    val primary: Color = Color.Unspecified,
-    val secondary: Color = Color.Unspecified,
-    val tertiary: Color = Color.Unspecified,
-    val neutral: Color = Color.Unspecified
+    val top: Color = Color.Unspecified,
+    val bottom: Color = Color.Unspecified,
+    val container: Color = Color.Unspecified,
 )
 
 /**

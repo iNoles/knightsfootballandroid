@@ -3,8 +3,6 @@ import org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
-    id("dagger.hilt.android.plugin")
     id("dev.shreyaspatil.compose-compiler-report-generator")
 }
 
@@ -34,14 +32,9 @@ tasks.withType<KaptGenerateStubsTask>().configureEach {
 }
 
 dependencies {
-    implementation(project(":core-common"))
-    implementation(project(":core-network"))
     implementation(project(":core-ui"))
 
     implementation(libs.kotlinx.datetime)
     implementation(libs.coil.compose)
-    implementation("dev.olshevski.navigation:reimagined-hilt:1.3.1")
-
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    implementation("com.github.kittinunf.fuel:fuel:3.0.0-SNAPSHOT")
 }

@@ -3,8 +3,6 @@ import org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
-    id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
     id("dev.shreyaspatil.compose-compiler-report-generator")
 }
@@ -71,9 +69,6 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.compose.material3.windowSizeClass)
     implementation(libs.olshevski.navigation.reimagined)
-
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
 
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.test.ext)

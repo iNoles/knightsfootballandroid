@@ -23,26 +23,23 @@ import com.jonathansteele.core.ui.SportsTab
 import com.jonathansteele.core.ui.SportsTabRow
 import com.jonathansteele.core.ui.SportsTopAppBar
 import com.jonathansteele.core.ui.theme.KnightsFootballTheme
-import dev.olshevski.navigation.reimagined.hilt.hiltViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun RostersScreen(
-    modifier: Modifier = Modifier,
-    viewModel: RostersViewModel = hiltViewModel()
+    modifier: Modifier = Modifier
 ) {
-    val tabState by viewModel.tabState.collectAsState()
+    val pagerTitles = listOf(R.string.players, R.string.coaches)
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
     Column(modifier = modifier) {
         SportsTopAppBar(titleRes = R.string.rosters)
         SportsTabRow(selectedTabIndex = pagerState.currentPage) {
-            tabState.titles.forEachIndexed { index, titleId ->
+            pagerTitles.forEachIndexed { index, titleId ->
                 SportsTab(
                     selected = pagerState.currentPage == index,
                     onClick = {
-                        viewModel.switchTab(index)
                         scope.launch {
                             pagerState.scrollToPage(index)
                         } },
@@ -50,24 +47,24 @@ fun RostersScreen(
                 )
             }
         }
-        val rostersState by viewModel.rosters.collectAsState()
+        val rostersState by fetchRosters().collectAsState(initial = null)
         HorizontalPager(
             state = pagerState,
-            count = tabState.titles.size,
+            count = pagerTitles.size,
             verticalAlignment = Alignment.Top,
             contentPadding = PaddingValues(top = 12.dp),
         ) { index ->
             when(index) {
                 0 -> {
-                    LazyColumn(modifier = modifier.padding(horizontal = 16.dp)) {
-                        items(rostersState.players) {
+                    LazyColumn {
+                        items(rostersState?.players ?: emptyList()) {
                             PlayersListItem(players = it)
                         }
                     }
                 }
                 1 -> {
-                    LazyColumn(modifier = modifier.padding(horizontal = 16.dp)) {
-                        items(rostersState.coaches) {
+                    LazyColumn {
+                        items(rostersState?.coaches ?: emptyList()) {
                             CoachesListItem(coaches = it)
                         }
                     }
