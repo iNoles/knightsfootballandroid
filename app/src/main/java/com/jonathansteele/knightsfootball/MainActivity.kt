@@ -5,22 +5,33 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.jonathansteele.core.ui.*
+import com.jonathansteele.core.ui.SportsGradientBackground
+import com.jonathansteele.core.ui.SportsNavigationBar
+import com.jonathansteele.core.ui.SportsNavigationBarItem
+import com.jonathansteele.core.ui.SportsTopAppBar
 import com.jonathansteele.core.ui.theme.GradientColors
 import com.jonathansteele.core.ui.theme.KnightsFootballTheme
 import com.jonathansteele.core.ui.theme.LocalGradientColors
-import com.jonathansteele.feature.headlines.HeadlinesScreen
-import com.jonathansteele.feature.rosters.RostersScreen
-import com.jonathansteele.feature.schedules.SchedulesScreen
-import dev.olshevski.navigation.reimagined.*
+import dev.olshevski.navigation.reimagined.NavAction
+import dev.olshevski.navigation.reimagined.NavController
+import dev.olshevski.navigation.reimagined.moveToTop
+import dev.olshevski.navigation.reimagined.navigate
+import dev.olshevski.navigation.reimagined.pop
+import dev.olshevski.navigation.reimagined.rememberNavController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +53,8 @@ fun MainScreen() {
     // custom back handler implementation
     BottomNavigationBackHandler(navController)
 
-    val lastEntry = navController.backstack.entries.last()
-    val shouldShowGradientBackground = lastEntry.destination == BottomNavigationDestination.Home
+    val lastDestination = navController.backstack.entries.last().destination
+    val shouldShowGradientBackground = lastDestination == BottomNavigationDestination.Home
 
     KnightsFootballTheme {
         SportsGradientBackground(
@@ -60,13 +71,9 @@ fun MainScreen() {
                     SportsBottomBar(navController)
                 }
             ) { padding ->
-                val modifier = Modifier.padding(padding).fillMaxSize()
-                AnimatedNavHost(controller = navController) {
-                    when(it) {
-                        BottomNavigationDestination.Home -> HeadlinesScreen(modifier = modifier)
-                        BottomNavigationDestination.Schedules -> SchedulesScreen(modifier = modifier)
-                        BottomNavigationDestination.Rosters -> RostersScreen(modifier = modifier)
-                    }
+                Column(modifier = Modifier.padding(padding).fillMaxSize()) {
+                    SportsTopAppBar(titleRes = lastDestination.tabTitleId)
+                    SportsNavHost(navController = navController)
                 }
             }
         }

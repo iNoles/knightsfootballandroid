@@ -19,16 +19,11 @@ import com.jonathansteele.core.ui.SportsTopAppBar
 import com.jonathansteele.core.ui.theme.KnightsFootballTheme
 
 @Composable
-fun SchedulesScreen(
-    modifier: Modifier = Modifier
-) {
+fun SchedulesScreen() {
     val scheduleState = fetchSchedule().collectAsState(initial = emptyList())
-    Column(modifier = modifier) {
-        SportsTopAppBar(titleRes = R.string.schedules)
-        LazyColumn {
-            items(scheduleState.value) {
-                ScheduleListItem(schedule = it)
-            }
+    LazyColumn {
+        items(scheduleState.value) {
+            ScheduleListItem(schedule = it)
         }
     }
 }
@@ -58,6 +53,7 @@ private fun OpponentIcon(url: String?, modifier: Modifier = Modifier) {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun ScheduleTabPreview() {

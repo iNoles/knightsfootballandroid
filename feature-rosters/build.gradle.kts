@@ -35,6 +35,5 @@ dependencies {
     implementation(project(":core-ui"))
 
     implementation(libs.jsoup)
-    implementation(libs.accompanist.pager)
     implementation("com.github.kittinunf.fuel:fuel:3.0.0-SNAPSHOT")
 }

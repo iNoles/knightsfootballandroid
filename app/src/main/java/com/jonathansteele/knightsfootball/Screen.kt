@@ -11,5 +11,5 @@ sealed class Screen : Parcelable {
     object Schedules : Screen()
 
     @Parcelize
-    object Rosters: Screen()
+    object Rosters : Screen()
 }

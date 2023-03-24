@@ -23,16 +23,11 @@ import com.jonathansteele.core.ui.SportsTopAppBar
 import com.jonathansteele.core.ui.theme.KnightsFootballTheme
 
 @Composable
-fun HeadlinesScreen(
-    modifier: Modifier = Modifier
-) {
+fun HeadlinesScreen() {
     val headlinesState = fetchHeadlines().collectAsState(initial = emptyList())
-    Column(modifier = modifier) {
-        SportsTopAppBar(titleRes = R.string.headlines)
-        LazyColumn {
-            items(headlinesState.value) {
-                HeadlinesListItem(data = it)
-            }
+    LazyColumn {
+        items(headlinesState.value) {
+            HeadlinesListItem(data = it)
         }
     }
 }
@@ -71,6 +66,7 @@ private fun HeadlinesListItem(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun HeadlinesTabPreview() {
