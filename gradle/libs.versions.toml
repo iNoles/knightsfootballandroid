@@ -1,5 +1,5 @@
 [versions]
-androidPlugins = "8.1.0-alpha10"
+androidPlugins = "8.1.0-alpha11"
 androidxActivity = "1.7.0"
 androidxComposeBom = "2023.03.00"
 androidxComposeCompiler = "1.4.4"
