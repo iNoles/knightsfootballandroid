@@ -39,7 +39,7 @@ dependencies {
 
     implementation(libs.coil.compose)
     implementation("com.github.kittinunf.fuel:fuel-moshi-jvm:3.0.0-SNAPSHOT")
-    implementation("androidx.core:core:1.9.0")
+    implementation("androidx.core:core:1.10.0")
 
     kapt(libs.moshi.kotlin.codegen)
 }
