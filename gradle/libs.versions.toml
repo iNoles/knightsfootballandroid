@@ -2,7 +2,7 @@
 androidPlugins = "8.1.0-alpha11"
 androidxActivity = "1.7.0"
 androidxComposeBom = "2023.04.00"
-androidxComposeCompiler = "1.4.4-dev-k1.8.20-f6ae19e64ff"
+androidxComposeCompiler = "1.4.5"
 androidxCore = "1.10.0"
 androidxSplashScreen = "1.0.0"
 androidxEspresso = "3.5.1"
