@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -27,14 +25,10 @@ android {
     }
 }
 
-tasks.withType<KaptGenerateStubsTask>().configureEach {
-    kotlinOptions.jvmTarget = "11"
-}
-
 dependencies {
     implementation(project(":core-ui"))
 
     implementation(libs.kotlinx.datetime)
     implementation(libs.coil.compose)
-    implementation("com.github.kittinunf.fuel:fuel:3.0.0-SNAPSHOT")
+    implementation(libs.fuel)
 }
