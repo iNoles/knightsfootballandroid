@@ -11,13 +11,6 @@ android {
 
     defaultConfig.minSdk = 26
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         compose = true
     }
@@ -25,7 +18,7 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
 }
 

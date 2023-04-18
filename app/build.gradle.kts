@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -30,13 +28,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         compose = true
     }
@@ -48,10 +39,13 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
-}
-
-tasks.withType<KaptGenerateStubsTask>().configureEach {
-    kotlinOptions.jvmTarget = "11"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlin {
+        jvmToolchain(17)
+    }
 }
 
 dependencies {
