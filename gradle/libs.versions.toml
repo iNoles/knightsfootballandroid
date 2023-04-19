@@ -1,7 +1,7 @@
 [versions]
 androidPlugins = "8.1.0-alpha11"
 androidxActivity = "1.7.0"
-androidxComposeBom = "2023.04.00"
+androidxComposeBom = "2023.04.01"
 androidxComposeCompiler = "1.4.5"
 androidxCore = "1.10.0"
 androidxSplashScreen = "1.0.0"
