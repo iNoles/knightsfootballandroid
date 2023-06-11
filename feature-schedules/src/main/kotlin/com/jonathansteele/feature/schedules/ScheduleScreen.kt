@@ -28,7 +28,6 @@ fun SchedulesScreen() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScheduleListItem(
     schedule: Schedule,
@@ -37,8 +36,8 @@ fun ScheduleListItem(
     Card(modifier.padding(16.dp)) {
         ListItem(
             leadingContent = { OpponentIcon(url = schedule.opponentLogo, modifier.size(64.dp)) },
-            headlineText = { Text(text = schedule.opponent!!) },
-            supportingText = { Text(text = schedule.location!!) },
+            headlineContent = { Text(text = schedule.opponent!!) },
+            supportingContent = { Text(text = schedule.location!!) },
             trailingContent = { Text(text = schedule.startDate!!) }
         )
     }

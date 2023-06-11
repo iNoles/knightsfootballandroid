@@ -41,7 +41,6 @@ private fun HeadlinesIcon(url: String?, modifier: Modifier = Modifier) {
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun HeadlinesListItem(
     data: Data,
@@ -53,8 +52,8 @@ private fun HeadlinesListItem(
     val context = LocalContext.current
     Card(modifier.padding(16.dp)) {
         ListItem(
-            headlineText = { Text(text = data.story_headline!!) },
-            supportingText = { Text(text = data.story_created!!) },
+            headlineContent = { Text(text = data.story_headline!!) },
+            supportingContent = { Text(text = data.story_created!!) },
             leadingContent = {
                 HeadlinesIcon(url = data.story_image, iconModifier.size(64.dp))
             },

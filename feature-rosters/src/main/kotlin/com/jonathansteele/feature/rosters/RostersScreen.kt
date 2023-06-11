@@ -70,22 +70,20 @@ fun RostersScreen() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayersListItem(players: Players) {
     ListItem(
-        headlineText = { Text(text = players.name!!) },
-        supportingText = { Text(text = players.position!!) },
+        headlineContent = { Text(text = players.name!!) },
+        supportingContent = { Text(text = players.position!!) },
         leadingContent = { Text(text = players.number!!) }
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CoachesListItem(coaches: Coaches) {
     ListItem(
-        headlineText = { Text(text = coaches.name!!) },
-        supportingText = { Text(text = coaches.position!!) }
+        headlineContent = { Text(text = coaches.name!!) },
+        supportingContent = { Text(text = coaches.position!!) }
     )
 }
 
