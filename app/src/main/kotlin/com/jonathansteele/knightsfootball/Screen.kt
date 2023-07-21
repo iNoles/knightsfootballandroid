@@ -5,11 +5,11 @@ import kotlinx.parcelize.Parcelize
 
 sealed class Screen : Parcelable {
     @Parcelize
-    object Headlines : Screen()
+    data object Headlines : Screen()
 
     @Parcelize
-    object Schedules : Screen()
+    data object Schedules : Screen()
 
     @Parcelize
-    object Rosters : Screen()
+    data object Rosters : Screen()
 }

@@ -47,13 +47,10 @@ class ThemeTest {
         composeTestRule.setContent {
             KnightsFootballTheme(
                 darkTheme = false,
-                dynamicColor = false,
                 androidTheme = false
             ) {
                 val colorScheme = LightDefaultColorScheme
                 assertColorSchemesEqual(colorScheme, MaterialTheme.colorScheme)
-                val gradientColors = LightDefaultGradientColors
-                assertEquals(gradientColors, LocalGradientColors.current)
                 val backgroundTheme = BackgroundTheme(
                     color = colorScheme.surface,
                     tonalElevation = 2.dp
@@ -68,7 +65,6 @@ class ThemeTest {
         composeTestRule.setContent {
             KnightsFootballTheme(
                 darkTheme = true,
-                dynamicColor = false,
                 androidTheme = false
             ) {
                 val colorScheme = DarkDefaultColorScheme
@@ -89,7 +85,6 @@ class ThemeTest {
         composeTestRule.setContent {
             KnightsFootballTheme(
                 darkTheme = false,
-                dynamicColor = true,
                 androidTheme = false
             ) {
                 val colorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -98,11 +93,7 @@ class ThemeTest {
                     LightDefaultColorScheme
                 }
                 assertColorSchemesEqual(colorScheme, MaterialTheme.colorScheme)
-                val gradientColors = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    GradientColors()
-                } else {
-                    LightDefaultGradientColors
-                }
+                val gradientColors = GradientColors()
                 assertEquals(gradientColors, LocalGradientColors.current)
                 val backgroundTheme = BackgroundTheme(
                     color = colorScheme.surface,
@@ -118,7 +109,6 @@ class ThemeTest {
         composeTestRule.setContent {
             KnightsFootballTheme(
                 darkTheme = true,
-                dynamicColor = true,
                 androidTheme = false
             ) {
                 val colorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -143,7 +133,6 @@ class ThemeTest {
         composeTestRule.setContent {
             KnightsFootballTheme(
                 darkTheme = false,
-                dynamicColor = false,
                 androidTheme = true
             ) {
                 val colorScheme = LightAndroidColorScheme
@@ -161,7 +150,6 @@ class ThemeTest {
         composeTestRule.setContent {
             KnightsFootballTheme(
                 darkTheme = true,
-                dynamicColor = false,
                 androidTheme = true
             ) {
                 val colorScheme = DarkAndroidColorScheme
@@ -179,7 +167,6 @@ class ThemeTest {
         composeTestRule.setContent {
             KnightsFootballTheme(
                 darkTheme = false,
-                dynamicColor = true,
                 androidTheme = true
             ) {
                 val colorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -188,11 +175,7 @@ class ThemeTest {
                     LightDefaultColorScheme
                 }
                 assertColorSchemesEqual(colorScheme, MaterialTheme.colorScheme)
-                val gradientColors = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    GradientColors()
-                } else {
-                    LightDefaultGradientColors
-                }
+                val gradientColors = GradientColors()
                 assertEquals(gradientColors, LocalGradientColors.current)
                 val backgroundTheme = BackgroundTheme(
                     color = colorScheme.surface,
@@ -208,7 +191,6 @@ class ThemeTest {
         composeTestRule.setContent {
             KnightsFootballTheme(
                 darkTheme = true,
-                dynamicColor = true,
                 androidTheme = true
             ) {
                 val colorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

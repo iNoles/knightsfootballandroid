@@ -14,7 +14,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
+        kotlinCompilerExtensionVersion = "1.5.0"
     }
     kotlin {
         jvmToolchain(17)

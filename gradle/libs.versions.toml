@@ -2,7 +2,6 @@
 androidPlugins = "8.2.0-alpha13"
 androidxActivity = "1.7.2"
 androidxComposeBom = "2023.06.01"
-androidxComposeCompiler = "1.4.7"
 androidxCore = "1.10.1"
 androidxSplashScreen = "1.0.1"
 androidxEspresso = "3.5.1"
@@ -10,16 +9,14 @@ androidxTestExt = "1.1.5"
 coil = "2.4.0"
 fuel = "3.0.0-SNAPSHOT"
 moshi = "1.15.0"
-kotlin = "1.8.22"
-kotlinxCoroutines = "1.7.2"
+kotlin = "1.9.0"
 kotlinxDatetime = "0.4.0"
 reimaginedNavigation = "1.4.0"
 jsoup = "1.16.1"
 junit4 = "4.13.2"
 spotless = "6.20.0"
-turbine = "1.0.0"
 composeMetrics = "1.0.1"
-ksp = "1.8.22-1.0.11"
+ksp = "1.9.0-1.0.11"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
@@ -43,10 +40,7 @@ olshevski-navigation-reimagined = { group = "dev.olshevski.navigation", name = "
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }
-kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
-kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
-turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidPlugins" }
