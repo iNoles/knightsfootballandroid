@@ -15,7 +15,7 @@ reimaginedNavigation = "1.4.0"
 jsoup = "1.16.1"
 junit4 = "4.13.2"
 spotless = "6.20.0"
-composeMetrics = "1.0.1"
+composeMetrics = "1.1.0"
 ksp = "1.9.0-1.0.12"
 
 [libraries]
